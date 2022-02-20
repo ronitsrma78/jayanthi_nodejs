@@ -11,7 +11,19 @@
 // export router
 
 const express = require("express");
+const User = require("./modal/User");
 const router = express.Router();
+
+router.post("/register", async (req, res) => {
+  const newUser = new User({
+    email: req.body.email,
+    password: req.body.password,
+  });
+
+  const user = await newUser.save();
+
+  res.send(user);
+});
 
 router.post("/login", (req, res) => {
   // /api/user/login
@@ -31,4 +43,4 @@ router.get("/logout", (req, res) => {
 
 module.exports = router;
 
-// http://localhost:4000/api/user/login
+//POST-> http://localhost:4000/api/user/login ->>>>
