@@ -1,36 +1,33 @@
-// TODO
-// import express
-// create server
-// listen server
-
 const express = require("express");
-
-const userRoutes = require("./userRoutes");
-
-const app = express();
-
-/**
- *  connect mongodb
- */
 
 const mongoose = require("mongoose");
 
+//const bodyparser = require('body-parser');
+
+//const myReqLogger = require('./Utilities/requestLogger');
+
+// const route = require('./Routes/routing');
+
+const app = express();
+
 mongoose
   .connect("mongodb://localhost:27017/test")
-  .then(() => {
-    console.log("connected");
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+  .then(() => console.log("connected"));
 
-// use this middleware convert the string data comes from client  into json.
-app.use(express.json());
+// app.use(bodyparser.json());
 
-app.use("/api/user", userRoutes);
+// app.use(myReqLogger);
 
-//app.use("/api/product", productRoutes);
+// app.use('/user', require('./Routes/routing'));
 
-app.listen(4000, () => {
-  console.log("server is up and running.");
+app.use("/product", require("./productsRoutes.js"));
+
+// app.use('/', route);
+
+const port = process.env.PORT || 3000;
+
+app.listen(port, () => {
+  console.log(`App running on port ${port}...`);
 });
+
+//http://localhost:3000/product/product  GET
